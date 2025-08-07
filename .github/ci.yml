@@ -11,22 +11,18 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-
     steps:
-      # Step 1: Checkout the repository code
-      - name: Checkout code
-        uses: actions/checkout@v2
-
-      # Step 2: Set up Node.js
+      - uses: actions/checkout@v2
       - name: Set up Node.js
         uses: actions/setup-node@v2
         with:
           node-version: '14'
+      - name: Install dependencies
+        run: |
+          cd frontend
+          npm install
+      - name: Run tests
+        run: |
+          cd frontend
+          npm test
 
-      # Step 3: Install dependencies
-      - name: Install Dependencies
-        run: npm install
-
-      # Step 4: Run tests
-      - name: Run Tests
-        run: npm test
