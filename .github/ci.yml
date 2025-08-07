@@ -18,9 +18,16 @@ jobs:
       with:
         node-version: '14'
 
+    - name: List current directory (Debugging)
+      run: |
+        echo "Current directory: $(pwd)"
+        ls -la
+
     - name: Install dependencies in frontend
       run: |
         cd frontend
+        echo "Inside frontend directory: $(pwd)"
+        ls -la
         npm install
 
     - name: Run tests in frontend
