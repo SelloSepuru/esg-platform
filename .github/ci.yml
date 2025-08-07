@@ -14,12 +14,10 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: ./.github/actions/checkout
 
       - name: Set up Node.js
-        uses: actions/setup-node@v2
-        with:
-          node-version: '14'  # Specify your node version here
+        uses: ./.github/actions/setup-node
 
       - name: Install dependencies
         run: npm install
@@ -31,4 +29,4 @@ jobs:
         run: npm run build
 
       - name: Deploy (optional)
-        run: npm run deploy  # You can modify this step for your deployment
+        run: npm run deploy

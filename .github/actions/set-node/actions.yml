@@ -1,0 +1,9 @@
+name: 'Custom Node Setup Action'
+description: 'Sets up Node.js'
+runs:
+  using: 'node12'
+  steps:
+    - name: 'Install Node.js'
+      run: |
+        curl -sL https://deb.nodesource.com/setup_14.x | sudo -E bash -
+        sudo apt-get install -y nodejs
