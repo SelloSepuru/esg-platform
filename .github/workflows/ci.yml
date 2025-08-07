@@ -1,4 +1,4 @@
-name: CI Pipeline
+name: Node.js CI
 
 on:
   push:
@@ -19,7 +19,7 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v2
         with:
-          node-version: '14'
+          node-version: '14'  # Specify your node version here
 
       - name: Install dependencies
         run: npm install
@@ -27,5 +27,8 @@ jobs:
       - name: Run tests
         run: npm test
 
-      - name: Build
+      - name: Build app
         run: npm run build
+
+      - name: Deploy (optional)
+        run: npm run deploy  # You can modify this step for your deployment
