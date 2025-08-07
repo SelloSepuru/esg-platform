@@ -1,4 +1,4 @@
-name: CI Pipeline
+name: Node.js CI
 
 on:
   push:
@@ -11,20 +11,24 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+
     steps:
-      - name: Checkout Repository
+      - name: Checkout code
         uses: actions/checkout@v2
-        
+
       - name: Set up Node.js
         uses: actions/setup-node@v2
         with:
-          node-version: '14'
-          
-      - name: Install Dependencies
+          node-version: '14'  # Specify your node version here
+
+      - name: Install dependencies
         run: npm install
-        
-      - name: Run Tests
+
+      - name: Run tests
         run: npm test
 
-      - name: Build Project
+      - name: Build app
         run: npm run build
+
+      - name: Deploy (optional)
+        run: npm run deploy  # You can modify this step for your deployment
