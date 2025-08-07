@@ -23,14 +23,14 @@ jobs:
         echo "Current directory: $(pwd)"
         ls -la
 
-    - name: Install dependencies in frontend
+    - name: List frontend directory (Debugging)
       run: |
-        cd frontend
-        echo "Inside frontend directory: $(pwd)"
-        ls -la
-        npm install
+        ls -la frontend
 
-    - name: Run tests in frontend
-      run: |
-        cd frontend
-        npm test
+    - name: Install dependencies
+      run: npm install
+      working-directory: frontend
+
+    - name: Run tests
+      run: npm test
+      working-directory: frontend
