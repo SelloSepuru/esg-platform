@@ -13,20 +13,20 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      # Step 1: Checkout the repository code
       - name: Checkout code
-        uses: ./.github/actions/checkout
+        uses: actions/checkout@v2
 
+      # Step 2: Set up Node.js
       - name: Set up Node.js
-        uses: ./.github/actions/setup-node
+        uses: actions/setup-node@v2
+        with:
+          node-version: '14'
 
-      - name: Install dependencies
+      # Step 3: Install dependencies
+      - name: Install Dependencies
         run: npm install
 
-      - name: Run tests
+      # Step 4: Run tests
+      - name: Run Tests
         run: npm test
-
-      - name: Build app
-        run: npm run build
-
-      - name: Deploy (optional)
-        run: npm run deploy
