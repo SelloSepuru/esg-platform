@@ -7,22 +7,32 @@ on:
   pull_request:
     branches:
       - main
-
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+
+      # Debugging: Check the contents of the directory
+      - name: List directory structure
+        run: ls -al
+
+      # Set up Node.js
       - name: Set up Node.js
         uses: actions/setup-node@v2
         with:
           node-version: '14'
+
+      # Install dependencies in the frontend directory
       - name: Install dependencies
         run: |
           cd frontend
+          ls -al  # List files in the frontend directory
           npm install
+
+      # Run tests in the frontend directory
       - name: Run tests
         run: |
           cd frontend
+          ls -al  # List files in the frontend directory before running tests
           npm test
-
