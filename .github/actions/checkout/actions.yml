@@ -1,8 +1,0 @@
-name: 'Custom Checkout Action'
-description: 'Checks out the code'
-runs:
-  using: 'node12'
-  steps:
-    - name: 'Checkout Code'
-      run: git checkout ${{ github.ref }}
-
