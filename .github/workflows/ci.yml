@@ -1,4 +1,4 @@
-name: Node.js CI
+name: ESG Platform CI/CD
 
 on:
   push:
@@ -9,26 +9,68 @@ on:
       - main
 
 jobs:
-  build:
+  frontend:
+    name: Frontend Build and Test
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
+    - name: Checkout code
+      uses: actions/checkout@v3
 
-      - name: Set up Node.js
-        uses: actions/setup-node@v2
-        with:
-          node-version: '14'  # Specify your node version here
+    - name: Setup Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '18'
+        cache: 'npm'
+        cache-dependency-path: frontend/package-lock.json
 
-      - name: Install dependencies
-        run: npm install
+    - name: List project structure (Debugging)
+      run: |
+        echo "Current directory: $(pwd)"
+        ls -la
+        echo "Frontend directory contents:"
+        ls -la frontend/
 
-      - name: Run tests
-        run: npm test
+    - name: Install frontend dependencies
+      run: npm ci
+      working-directory: frontend
 
-      - name: Build app
-        run: npm run build
+    - name: Build frontend
+      run: npm run build
+      working-directory: frontend
 
-      - name: Deploy (optional)
-        run: npm run deploy  # You can modify this step for your deployment
+    - name: Run frontend tests
+      run: npm test -- --coverage --watchAll=false
+      working-directory: frontend
+
+  backend:
+    name: Backend Build and Test
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: '6.0.x'
+
+    - name: List backend structure (Debugging)
+      run: |
+        echo "Backend directory contents:"
+        ls -la backend/
+        echo "Backend/Backend directory contents:"
+        ls -la backend/Backend/
+
+    - name: Restore dependencies
+      run: dotnet restore
+      working-directory: backend/Backend
+
+    - name: Build backend
+      run: dotnet build --no-restore
+      working-directory: backend/Backend
+
+    - name: Run backend tests
+      run: dotnet test --no-build --verbosity normal
+      working-directory: backend/Backend
