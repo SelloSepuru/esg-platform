@@ -18,4 +18,4 @@ This folder contains all the API controllers for the ESG Platform backend.
 - Keep controllers thin - delegate business logic to services
 - Use proper HTTP status codes
 - Implement proper error handling
-- Use DTOs for data transfer.
+- Use DTOs for data transfer
